@@ -2,3 +2,5 @@
 mybatis-generator:generate -e
 
 jdbc.properties 里面配置自动生成的路径
+
+2..idea不需要提交
