@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * Created by robin on 2018/6/29.
  * 项目启动的时候创建线程池
+ * 线程池配置文件
  */
 @Configuration
 @EnableAsync

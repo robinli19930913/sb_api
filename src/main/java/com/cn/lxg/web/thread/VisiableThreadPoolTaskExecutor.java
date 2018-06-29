@@ -8,6 +8,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
+ * 自定义
  * Created by robin on 2018/6/29.
  */
 public class VisiableThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
