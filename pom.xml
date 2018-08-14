@@ -173,6 +173,34 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.6</version>
 		</dependency>
+
+		<!-- excel star-->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.12</version>
+		</dependency>
+		<!-- excel end-->
+
+		<!-- Elasticsearch start -->
+		<dependency>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>transport</artifactId>
+			<version>5.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.searchbox</groupId>
+			<artifactId>jest</artifactId>
+			<version>5.3.2</version>
+		</dependency>
+		<!-- Elasticsearch end -->
+
+
 	</dependencies>
 
 	<build>
