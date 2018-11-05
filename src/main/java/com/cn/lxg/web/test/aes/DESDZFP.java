@@ -124,7 +124,6 @@ public class DESDZFP {
 		// 进行解密校检
 		for (int i = 0; i < md5Hash.length; i++) {
 			if (md5Hash[i] != temp[i]) {
-				// System.out.println(md5Hash[i] + "MD5校验错误。" + temp[i]);
 				throw new Exception("MD5校验错误。");
 			}
 		}
