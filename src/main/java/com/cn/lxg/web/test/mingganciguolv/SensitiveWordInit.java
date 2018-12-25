@@ -22,6 +22,12 @@ public class SensitiveWordInit {
 	@SuppressWarnings("rawtypes")
 	public HashMap sensitiveWordMap;
 
+	private Set<String> keyWordSet;
+
+//	public SensitiveWordInit(Set<String> keyWordSet){
+//		this.keyWordSet = keyWordSet;
+//	}
+
 	public SensitiveWordInit(){
 		super();
 	}

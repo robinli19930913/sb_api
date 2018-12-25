@@ -85,7 +85,6 @@ public class ThreadPoolConfig {
      */
     @Bean
     public Executor complexAsyncExecutorVisiable() {
-        System.out.println("complexAsyncExecutorVisiable");
         ThreadPoolTaskExecutor executor = new VisiableThreadPoolTaskExecutor();
         executor.setCorePoolSize(corePoolSize);
         executor.setMaxPoolSize(maxPoolSize);

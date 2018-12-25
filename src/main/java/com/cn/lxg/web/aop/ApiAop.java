@@ -33,7 +33,6 @@ public class ApiAop implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        System.out.println("preHandle:"+response.getStatus());
 
         /*获取类上面的注解*/
         Class<?> controller = handlerMethod.getBean().getClass();
@@ -63,13 +62,11 @@ public class ApiAop implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request,
                            HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-        System.out.println("postHandle:"+response.getStatus());
     }
     @Override
     public void afterCompletion(HttpServletRequest request,
                                 HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        System.out.println("afterCompletion:"+response.getStatus());
     }
 
     public void printBody(HttpServletResponse response,Object o){

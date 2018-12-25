@@ -1,6 +1,7 @@
 package com.cn.lxg;
 
 import com.cn.lxg.web.config.WebMvcConfig;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @ComponentScan({"com.cn.lxg.web"})
+@MapperScan(basePackages = {"com.cn.lxg.web.dao.mapper"})
 @Import({WebMvcConfig.class})
 public class StartMain {
 
