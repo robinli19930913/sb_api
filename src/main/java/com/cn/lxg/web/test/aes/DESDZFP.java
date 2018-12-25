@@ -3,12 +3,17 @@ package com.cn.lxg.web.test.aes;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 
+import org.apache.tomcat.util.security.MD5Encoder;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -28,7 +33,7 @@ public class DESDZFP {
 	 *            需要加密的消息字符串
 	 * @return 加密后的字符串
 	 */
-	public static String encrypt(String xmlStr) {
+	public static String encrypt(String xmlStr,String encryptKey) {
 		byte[] encrypt = {};
 
 		try {
@@ -52,7 +57,7 @@ public class DESDZFP {
 		// 取密钥和偏转向量
 		byte[] key = new byte[8];
 		byte[] iv = new byte[8];
-		getKeyIV(DESDZFP.key, key, iv);
+		getKeyIV(encryptKey, key, iv);
 		SecretKeySpec deskey = new SecretKeySpec(key, "DES");
 		IvParameterSpec ivParam = new IvParameterSpec(iv);
 
@@ -84,7 +89,7 @@ public class DESDZFP {
 	 * @return 解密后的字符串
 	 * @throws Exception
 	 */
-	public static String decrypt(String xmlStr) throws Exception {
+	public static String decrypt(String xmlStr,String encryptKey) throws Exception {
 		// base64解码
 		BASE64Decoder decoder = new BASE64Decoder();
 		byte[] encBuf = null;
@@ -100,7 +105,7 @@ public class DESDZFP {
 		// 取密钥和偏转向量
 		byte[] key = new byte[8];
 		byte[] iv = new byte[8];
-		getKeyIV(DESDZFP.key, key, iv);
+		getKeyIV(encryptKey, key, iv);
 
 		SecretKeySpec deskey = new SecretKeySpec(key, "DES");
 		IvParameterSpec ivParam = new IvParameterSpec(iv);
@@ -393,10 +398,19 @@ public class DESDZFP {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String str="{\"identity\":\"B8FB14CA1C6D7C93D9154E2262FF0F9DD796B180A2A7690A\",\"order\":{\"orderno\":\"No.20160308151221\",\"saletaxnum\":\"110101MXB6CK9Q6\",\"saleaddress\":\"万塘路30号\",\"salephone\":\"0571-1234567\",\"saleaccount\":\"工商银行6222222222222\",\"clerk\":\"sa\",\"payee\":\"sa\",\"checker\":\"sa\",\"invoicedate\":\"2016-03-08 15:12:21\",\"ordertotal\":\"8.00\",\"kptype\":\"1\",\"taxtotal\":\"1.16\",\"bhtaxtotal\":\"6.84\",\"address\":\"浙江杭州 0571-123456789\",\"phone\":\"0571-123456789\",\"taxnum\":\"339900000000004\",\"buyername\":\"浙江爱信诺航天信息有限公司\",\"account\":\"工商-123456789浙江爱信诺航天信息有限公司\",\"message\":\"浙江爱信诺航天信息有限公司\",\"fpdm\":\"\",\"fphm\":\"\",\"detail\":[{\"goodsname\":\"1\",\"spec\":\"1\",\"unit\":\"1\",\"hsbz\":\"1\",\"num\":\"1\",\"price\":\"4\",\"taxrate\":\"0.17\"},{\"goodsname\":\"2\",\"spec\":\"2\",\"unit\":\"2\",\"hsbz\":\"1\",\"num\":\"1\",\"price\":\"4\",\"taxrate\":\"0.17\"}]}}";
-		str=encrypt(str);
-		System.out.println(str);
-		str=decrypt(str);
-		System.out.println(str);
+//		String str="{\"orderno\":\"20181120\",\"id\":\"1\"}";
+//		str=encrypt(str,key);
+//		System.out.println(str);
+//		str=decrypt(str,key);
+//		System.out.println(str);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.HOUR_OF_DAY, 0);//时
+		cal.set(Calendar.MINUTE, 0);//分
+		cal.set(Calendar.SECOND, 0);//秒
+		long l = (cal.getTime().getTime() - new Date().getTime());
+		System.out.println(l);
+		System.out.println(format.format(cal.getTime()));
 	}
 }
