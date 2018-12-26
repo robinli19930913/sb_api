@@ -264,7 +264,7 @@ public class SensitiveWordUtils {
             }
         }
         //长度必须大于等于1，为词
-        if(matchFlag < 2 || !flag){
+        if(matchFlag < 1 || !flag){
             matchFlag = 0;
         }
         return matchFlag;
