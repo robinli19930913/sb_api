@@ -2,6 +2,7 @@ package com.cn.lxg.web.test.mingganciguolv;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cn.lxg.web.dao.model.Contraband;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,16 +26,7 @@ public class GuoLv {
     public JSONObject test(){
         long beginTime = System.currentTimeMillis();
         JSONObject json = new JSONObject();
-        List<Contraband> contrabands = guoLvService.getList();
-        long endTime = System.currentTimeMillis();
-        System.out.println("获取数据消耗时间为(ms)：" + (endTime - beginTime));
-        beginTime = System.currentTimeMillis();
-        Set<String> keyWordSet = new HashSet<String>();
-        contrabands.forEach(n -> keyWordSet.add(n.getKeyWord()));
-        //SensitiveWordFilter filter = new SensitiveWordFilter(keyWordSet);
-        SensitiveWordFilter filter = new SensitiveWordFilter();
-        endTime = System.currentTimeMillis();
-        System.out.println("解析数据消耗时间为(ms)：" + (endTime - beginTime));
+        Set<String> keyWordSet = guoLvService.getRdisStrList();
         String string = "太多的伤感苏绣文情怀也许只局限于饲养基地 荧幕中的情节，主人公尝试着去用某种方式渐渐的很潇洒地释自杀指南怀那些自己经历的伤感。"
                 + "然后法轮功 我们的扮演的角色就是跟随着主人公的喜红客联盟 怒哀乐而过于牵强的把自己的情感也附加于银幕情节中，然后感动就流泪，"
                 + "难过就躺在某一个人的怀里尽情的阐述心扉苏绣文或者手机卡复制器一个人一杯红酒一部电影在夜三级片 深人静的晚上，关上电话静静的发呆着。✨乐华七子NEXT二巡✨✨应援头灯&amp;灯牌贩售公告✨大家之前也看到了我们的灯牌出现在了很多七子在的场合，也熠熠发光地告诉他们告诉所有人团饭的支持一直都在。为了让二巡包括更多的场合中，我们有更多的机会出现在他们面前‼️中首特开头灯&amp;灯牌贩售链接‼️希望有能力的小姐妹们可以认购（还单开了1元链接用于可租赁灯牌的支持）⭐️所有头灯&amp;灯牌按双排灯定制⭐️颜色均为最亮最显眼的白色（❤为红色）⭐️所有价格均按店铺原价包邮定制，⭐️制作结束后店家统一邮寄给大家►若量大从优，则所有余额投入制作同款灯牌存放中首仓库用于平时活动的租赁。" +
@@ -92,11 +84,13 @@ public class GuoLv {
                 "<br></p><p>【后续服务】&nbsp;</p><p>1）应援活动结束后提供高质量图片及O妹应援快报；&nbsp;</p><p>2）Owhat官微与粉丝站微博进行互动；  \n" +
                 "<br>\n" +
                 "<br></p><p><br></p> ";
-        beginTime = System.currentTimeMillis();
-        Set<String> set = filter.getSensitiveWord(string, 1);
-        endTime = System.currentTimeMillis();
-        System.out.println("语句中包含敏感词的个数为：" + set.size() + "。包含：" + set);
-        System.out.println("总共消耗时间为(ms)：" + (endTime - beginTime));
+        Set<String> sensitiveWord = SensitiveWordUtils.getSensitiveWord(string,keyWordSet);
+        long endTime = System.currentTimeMillis();
+        json.put("敏感词数：", keyWordSet.size());
+        json.put("检测字数：", string.length());
+        json.put("总共消耗时间为(ms)：",endTime - beginTime);
+        json.put("语句中包含敏感词的个数为：",sensitiveWord.size());
+        json.put("包含：",sensitiveWord);
         return json;
     }
 }
