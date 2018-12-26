@@ -85,12 +85,14 @@ public class GuoLv {
                 "<br>\n" +
                 "<br></p><p><br></p> ";
         Set<String> sensitiveWord = SensitiveWordUtils.getSensitiveWord(string,keyWordSet);
+        List<Contraband> level = guoLvService.getLevel(sensitiveWord);
         long endTime = System.currentTimeMillis();
         json.put("敏感词数：", keyWordSet.size());
         json.put("检测字数：", string.length());
         json.put("总共消耗时间为(ms)：",endTime - beginTime);
         json.put("语句中包含敏感词的个数为：",sensitiveWord.size());
         json.put("包含：",sensitiveWord);
+        json.put("简处理结果：",JSONObject.toJSONString(level));
         return json;
     }
 }

@@ -11,6 +11,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -51,5 +52,20 @@ public class GuoLvService {
             }
         }
         return set;
+    }
+
+    public List<Contraband> getLevel(Set<String> sensitiveWord) {
+        ContrabandExample contrabandExample = new ContrabandExample();
+        contrabandExample.createCriteria()
+                .andActiveEqualTo(Short.valueOf("1"))
+                .andKeyWordIn(new ArrayList<>(sensitiveWord));
+        List<Contraband> contrabands = contrabandMapper.selectByExample(contrabandExample);
+        contrabands.forEach(n ->{
+            if(n.getType().shortValue() > 0){
+                n.setLevel(Short.valueOf("1"));
+                n.setActive(null);
+            }
+        });
+        return contrabands;
     }
 }
