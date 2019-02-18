@@ -1,5 +1,6 @@
 package com.cn.lxg.web.utils;
 
+import com.cn.lxg.web.bean.SegmenterDTO;
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
 
@@ -26,6 +27,30 @@ public class IKAnalyzerUtils {
             return new ArrayList<>(0);
         }
         return sortSegmenterResult(textDef);
+    }
+
+    /**
+     * 获取文本词频倒序分词列表
+     * @param text 文本
+     * @return
+     * @throws IOException
+     */
+    public static List<SegmenterDTO> getSegmenterDTOList(String text) throws IOException {
+        Map<String, Integer> textDef = getTextDef(text);
+        if(textDef != null && !textDef.isEmpty()){
+            List<Map.Entry<String, Integer>> entries = sortSegmenterResult(textDef);
+            if(entries != null && !entries.isEmpty()){
+                List<SegmenterDTO> list = new ArrayList<>();
+                SegmenterDTO segmenterDTO = null;
+                for(Map.Entry<String, Integer> map : entries){
+                    segmenterDTO = new SegmenterDTO();
+                    segmenterDTO.setWord(map.getKey());
+                    segmenterDTO.setFrequency(map.getValue());
+                    list.add(segmenterDTO);
+                }
+            }
+        }
+        return new ArrayList<>(0);
     }
 
 
