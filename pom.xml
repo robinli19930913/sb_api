@@ -217,6 +217,7 @@
 			<version>7.3.0</version>
 		</dependency>
 
+		<!-- ikanalyzer分词 -->
 		<dependency>
 			<groupId>com.janeluo</groupId>
 			<artifactId>ikanalyzer</artifactId>
